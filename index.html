@@ -167,26 +167,15 @@
             background:radial-gradient(circle, rgba(239,216,162,0.12), transparent 65%);
         }
 
-        .summary-card::after{
-            content:"";
-            position:absolute;
-            left:18px;
-            top:16px;
-            width:14px;
-            height:14px;
-            border-radius:50%;
-            background:linear-gradient(135deg, var(--gold-soft), var(--saffron));
-            box-shadow:0 0 18px rgba(239,216,162,0.4);
-        }
-
         .summary-label{
             position:relative;
             z-index:1;
             color:var(--gold-soft);
-            font-size:11px;
+            font-size:14px;
             text-transform:uppercase;
             letter-spacing:2px;
             margin-bottom:16px;
+            font-weight:700;
         }
 
         .summary-value{
@@ -209,6 +198,60 @@
 
         .details-card{
             padding:24px 22px 14px;
+        }
+
+        .registration-card{
+            display:grid;
+            grid-template-columns:repeat(2, minmax(0, 1fr));
+            gap:18px;
+            margin-bottom:24px;
+            padding:24px 26px;
+            border:1px solid var(--border);
+            border-radius:22px;
+            background:linear-gradient(135deg, rgba(217,183,115,0.12), rgba(255,255,255,0.035));
+            box-shadow:0 20px 45px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+
+        .registration-item{
+            min-width:0;
+            padding:16px 18px;
+            border:1px solid rgba(255,216,136,0.2);
+            border-radius:17px;
+            background:rgba(255,255,255,0.035);
+        }
+
+        .registration-title{
+            margin-bottom:7px;
+            color:var(--gold-soft);
+            font-size:16px;
+            font-weight:700;
+        }
+
+        .registration-link{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            margin-top:4px;
+            padding:10px 15px;
+            border:1px solid rgba(240,215,158,0.45);
+            border-radius:10px;
+            color:#24100f;
+            background:var(--gold-soft);
+            font-size:12px;
+            font-weight:700;
+            text-decoration:none;
+            transition:0.2s ease;
+        }
+
+        .registration-link:hover{
+            background:var(--ivory);
+        }
+
+        .finger-icon{
+            width:16px;
+            height:16px;
+            fill:currentColor;
+            flex-shrink:0;
         }
 
         .details-card::before{
@@ -431,6 +474,10 @@
                 flex-direction:column;
                 align-items:stretch;
             }
+
+            .registration-card{
+                grid-template-columns:1fr;
+            }
         }
     </style>
 </head>
@@ -439,7 +486,7 @@
 
         <header class="header">
             <div class="logo">ॐ</div>
-            <div class="small-title">ഓം നമോ നാരായണായ</div>
+            <div class="small">ഓം നമോ നാരായണായ</div>
             <h1>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</h1>
             <p class="description">
                 ഗ്രാമദേവനായ നാരായണ ദേവരുടെ 500-ാം  പൗർണമി സത്യനാരായണ പൂജ ദിനത്തിൽ (26/09/2026)
@@ -450,14 +497,14 @@
         <section class="summary-grid">
             <article class="summary-card">
                 <div class="summary-label">ഗായത്രി ജപം</div>
-                <div class="summary-value" id="totalCount">Not Started</div>
+                <div class="summary-value" id="totalCount">not started</div>
                 <div class="summary-subtitle"id="totalreg1">0</div>
             </article>
 
             <article class="summary-card">
-                <div class="summary-label">Date</div>
-                <div class="summary-value" id="selectedDate">—</div>
-                <div class="summary-subtitle">Start Date</div>
+                <div class="summary-label">ദിവസം</div>
+                <div class="summary-value" id="selectedDate">Current Date</div>
+                <div class="summary-subtitle">26-09-2026 മുതൽ 06/05/2027 വരെ</div>
             </article>
 
             <article class="summary-card">
@@ -467,36 +514,57 @@
             </article>
         </section>
 
+        <section class="registration-card" aria-labelledby="registration-title">
+            <div class="registration-item">
+                <div class="registration-title" id="registration-title">Registration Link</div>
+                <a class="registration-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfYY3Bk5MUa0qdVtESkToaimTSfJ5qihVky0floj4zcoctdIA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+                    <svg class="finger-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.5 11V5.5a1.5 1.5 0 0 1 3 0V11h1V3.5a1.5 1.5 0 0 1 3 0V11h1V6.5a1.5 1.5 0 0 1 3 0v7.75c0 3.73-2.77 6.75-6.5 6.75h-.5c-2.76 0-4.98-1.58-6.04-3.78L4.1 13.9a1.5 1.5 0 0 1 2.7-1.3L8.5 15V11Z"/>
+                    </svg>
+                    Click Here
+                </a>
+            </div>
+            <div class="registration-item">
+                <div class="registration-title">Submit Count</div>
+                <a class="registration-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeRgGfkWG2eNlc6cGO2xu7ysh_8dMLtjiFNoWAcjsb8qIxktw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+                    <svg class="finger-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.5 11V5.5a1.5 1.5 0 0 1 3 0V11h1V3.5a1.5 1.5 0 0 1 3 0V11h1V6.5a1.5 1.5 0 0 1 3 0v7.75c0 3.73-2.77 6.75-6.5 6.75h-.5c-2.76 0-4.98-1.58-6.04-3.78L4.1 13.9a1.5 1.5 0 0 1 2.7-1.3L8.5 15V11Z"/>
+                    </svg>
+                    Click Here
+                </a>
+            </div>
+        </section>
+
         <section class="details-card">
             <div class="toolbar">
-                <h2 class="section-title">Important Dates Details</h2>
+                <h2 class="section-title">Important Dates</h2>
             </div>
 
             <div class="date-card-grid">
                 <article class="date-card">
                     <div class="date-icon">✦</div>
-                    <div class="date-label">Registration Opens</div>
-                    <div class="date-value">01 Sep 2026</div>
+                    <div class="date-label">സത്യനാരായണ പൂജ</div>
+                    <div class="date-value">26 Sep 2026</div>
                     <div class="date-description">
-                        Registration begins for all devotees and participants.
+                        500-ാം  പൗർണമി സത്യനാരായണ പൂജ
                     </div>
                 </article>
 
                 <article class="date-card">
                     <div class="date-icon">◈</div>
-                    <div class="date-label">Main Event</div>
-                    <div class="date-value">17 Sep 2026</div>
+                    <div class="date-label">മഹാനവമി</div>
+                    <div class="date-value">20 Oct 2026</div>
                     <div class="date-description">
-                        The main spiritual event will begin at 9:00 AM.
+                        ശ്രീ സരസ്വതി പൂജ,ശമീപൂജ  
                     </div>
                 </article>
 
                 <article class="date-card">
                     <div class="date-icon">☼</div>
-                    <div class="date-label">Closing Date</div>
-                    <div class="date-value">30 Sep 2026</div>
+                    <div class="date-label">വിജയദശമി</div>
+                    <div class="date-value">21 Oct 2026</div>
                     <div class="date-description">
-                        Final day for registration and participation.
+                        കാർത്തിക വൃത തുളസി പൂജാരംബം
                     </div>
                 </article>
             </div>
@@ -507,30 +575,29 @@
                 <article class="contact-card">
                     <div class="contact-icon">☎</div>
                     <div>
-                        <div class="contact-label">Phone</div>
+                        <div class="contact-label">Sreekath G Bhat (Melshanthi)</div>
                         <div class="contact-value">
-                            <a href="tel:+919876543210">+91 98765 43210</a>
+                            <a href="tel:+919037090910">+91 90370 90910</a>
                         </div>
                     </div>
                 </article>
 
                 <article class="contact-card">
-                    <div class="contact-icon">✉</div>
+                    <div class="contact-icon">☎</div>
                     <div>
-                        <div class="contact-label">Email</div>
+                        <div class="contact-label">Rohith Raj Pai</div>
                         <div class="contact-value">
-                            <a href="mailto:contact@example.com">contact@example.com</a>
+                            <a href="tel:+918111812762">+91 81118 12762</a>
                         </div>
                     </div>
                 </article>
 
                 <article class="contact-card">
-                    <div class="contact-icon">⌖</div>
+                    <div class="contact-icon">☎</div>
                     <div>
-                        <div class="contact-label">Location</div>
+                        <div class="contact-label">Ganesh Pai</div>
                         <div class="contact-value">
-                            Sri Temple Hall,<br>
-                            Main Road, Bengaluru
+                            <a href="tel:+919846127997">+91 98461 27997</a>
                         </div>
                     </div>
                 </article>
