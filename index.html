@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b1d28">
+
+    <title>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg-1: #180c10;
+            --bg-2: #2a1118;
+            --bg-3: #4c1f2d;
+            --card: rgba(255, 247, 230, 0.07);
+            --border: rgba(255, 216, 136, 0.28);
+            --ivory: #fff6ea;
+            --gold: #d9b773;
+            --gold-soft: #efd8a2;
+            --saffron: #d97706;
+            --maroon: #7a1e2d;
+            --green: #9fe29a;
+            --muted: rgba(255, 244, 226, 0.72);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body{
+            min-height:100vh;
+            padding:30px 16px;
+            font-family:"Inter", sans-serif;
+            color:var(--ivory);
+            background:
+                radial-gradient(circle at top left, rgba(217,119,6,0.15), transparent 26%),
+                radial-gradient(circle at bottom right, rgba(255,208,128,0.12), transparent 20%),
+                linear-gradient(135deg, var(--bg-1), var(--bg-2) 35%, var(--bg-3));
+            overflow-x:hidden;
+            position:relative;
+        }
+
+        body::before, body::after{
+            content:"";
+            position:fixed;
+            width:480px;
+            height:480px;
+            border-radius:50%;
+            filter:blur(12px);
+            pointer-events:none;
+            z-index:0;
+            opacity:0.16;
+        }
+
+        body::before{
+            top:-170px;
+            right:-130px;
+            background:radial-gradient(circle, rgba(217,183,115,0.9), transparent 62%);
+        }
+
+        body::after{
+            bottom:-180px;
+            left:-130px;
+            background:radial-gradient(circle, rgba(217,119,6,0.75), transparent 62%);
+        }
+
+        .page{
+            width:100%;
+            max-width:1180px;
+            margin:0 auto;
+            position:relative;
+            z-index:1;
+        }
+
+        .header{
+            position:relative;
+            text-align:center;
+            padding:18px 0 10px;
+            margin-bottom:26px;
+        }
+
+        .header::before,
+        .header::after{
+            content:"✦";
+            position:absolute;
+            top:0;
+            font-size:20px;
+            color:var(--gold-soft);
+            opacity:0.8;
+            text-shadow:0 0 16px rgba(239,216,162,0.6);
+        }
+
+        .header::before{ left:50%; transform:translateX(-120px); }
+        .header::after{ right:50%; transform:translateX(120px); }
+
+        .logo{
+            width:72px;
+            height:72px;
+            margin:0 auto 14px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:32px;
+            color:var(--gold-soft);
+            background:linear-gradient(135deg, rgba(239,216,162,0.15), rgba(217,119,6,0.12));
+            border:1px solid rgba(239,216,162,0.4);
+            box-shadow:0 0 30px rgba(239,216,162,0.12);
+        }
+
+        .small-title{
+            color:var(--gold-soft);
+            letter-spacing:4px;
+            font-size:11px;
+            text-transform:uppercase;
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        h1{
+            font-family:"Cormorant Garamond", serif;
+            font-size: clamp(42px, 6vw, 66px);
+            line-height:1;
+            letter-spacing:0.5px;
+            font-weight:600;
+        }
+
+        .description{
+            max-width:720px;
+            margin:12px auto 0;
+            color:var(--muted);
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .summary-grid{
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+            gap:18px;
+            margin-bottom:24px;
+        }
+
+        .summary-card, .details-card{
+            position:relative;
+            overflow:hidden;
+            background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+            border:1px solid var(--border);
+            border-radius:22px;
+            box-shadow:0 28px 60px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+
+        .summary-card{
+            min-height:150px;
+            padding:22px 22px 18px;
+        }
+
+        .summary-card::before{
+            content:"";
+            position:absolute;
+            width:130px;
+            height:130px;
+            right:-30px;
+            bottom:-30px;
+            border-radius:50%;
+            background:radial-gradient(circle, rgba(239,216,162,0.12), transparent 65%);
+        }
+
+        .summary-card::after{
+            content:"";
+            position:absolute;
+            left:18px;
+            top:16px;
+            width:14px;
+            height:14px;
+            border-radius:50%;
+            background:linear-gradient(135deg, var(--gold-soft), var(--saffron));
+            box-shadow:0 0 18px rgba(239,216,162,0.4);
+        }
+
+        .summary-label{
+            position:relative;
+            z-index:1;
+            color:var(--gold-soft);
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:2px;
+            margin-bottom:16px;
+        }
+
+        .summary-value{
+            position:relative;
+            z-index:1;
+            font-family:"Cormorant Garamond", serif;
+            font-size:clamp(36px,4vw,52px);
+            line-height:1;
+            font-weight:600;
+            color:var(--ivory);
+        }
+
+        .summary-subtitle{
+            position:relative;
+            z-index:1;
+            margin-top:12px;
+            color:rgba(255,246,234,0.6);
+            font-size:12px;
+        }
+
+        .details-card{
+            padding:24px 22px 14px;
+        }
+
+        .details-card::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(217,183,115,0.08), transparent 25%),
+                radial-gradient(circle at 90% 100%, rgba(217,119,6,0.06), transparent 18%);
+            pointer-events:none;
+        }
+
+        .toolbar{
+            position:relative;
+            display:flex;
+            align-items:flex-end;
+            justify-content:space-between;
+            gap:18px;
+            padding-bottom:16px;
+            border-bottom:1px solid rgba(255,216,136,0.16);
+            margin-bottom:14px;
+        }
+
+        .section-title{
+            font-family:"Cormorant Garamond", serif;
+            font-size:clamp(30px,3vw,42px);
+            font-weight:600;
+            color:var(--ivory);
+        }
+
+        .date-card-grid, .contact-grid, .photo-grid{
+            display:grid;
+            gap:18px;
+        }
+
+        .date-card-grid{
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+        }
+
+        .contact-grid{
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+        }
+
+        .photo-grid{
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+        }
+
+        .date-card, .contact-card{
+            position:relative;
+            overflow:hidden;
+            border:1px solid rgba(255,216,136,0.2);
+            border-radius:17px;
+            background:rgba(255,255,255,0.035);
+            padding:18px;
+        }
+
+        .date-card::after{
+            content:"";
+            position:absolute;
+            right:-35px;
+            bottom:-40px;
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            background:radial-gradient(circle, rgba(217,119,6,0.18), transparent 68%);
+        }
+
+        .date-icon, .contact-icon{
+            width:42px;
+            height:42px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            color:var(--gold-light);
+            font-size:18px;
+            background:rgba(122,30,45,0.75);
+            border:1px solid rgba(240,215,158,0.3);
+            margin-bottom:12px;
+        }
+
+        .date-label, .contact-label{
+            margin-bottom:6px;
+            color:var(--gold-light);
+            font-size:10px;
+            font-weight:700;
+            letter-spacing:1.5px;
+            text-transform:uppercase;
+        }
+
+        .date-value{
+            margin-bottom:7px;
+            color:var(--ivory);
+            font-family:"Cormorant Garamond", serif;
+            font-size:27px;
+            font-weight:600;
+        }
+
+        .date-description, .contact-value{
+            color:var(--muted);
+            font-size:12px;
+            line-height:1.6;
+        }
+
+        .contact-card{
+            display:flex;
+            align-items:flex-start;
+            gap:12px;
+        }
+
+        .contact-value a{
+            color:var(--ivory);
+            text-decoration:none;
+        }
+
+        .contact-value a:hover{ color:var(--gold-light); }
+
+        .photo-frame{
+            position:relative;
+            aspect-ratio:1 / 1.08;
+            overflow:hidden;
+            border:1px solid rgba(240,215,158,0.4);
+            border-radius:18px;
+            background:linear-gradient(135deg, rgba(217,119,6,0.15), rgba(122,30,45,0.28));
+            box-shadow:inset 0 0 0 7px rgba(255,247,230,0.035), 0 12px 28px rgba(0,0,0,0.2);
+        }
+
+        .photo-frame::before{
+            content:"✦";
+            position:absolute;
+            top:11px;
+            left:14px;
+            z-index:1;
+            color:var(--gold-light);
+            font-size:20px;
+            opacity:0.8;
+        }
+
+        .photo-frame::after{
+            content:"";
+            position:absolute;
+            right:14px;
+            bottom:12px;
+            z-index:1;
+            width:18px;
+            height:18px;
+            border-right:1px solid var(--gold-light);
+            border-bottom:1px solid var(--gold-light);
+            opacity:0.8;
+        }
+
+        .photo-frame img{
+            width:100%;
+            height:100%;
+            display:none;
+            object-fit:cover;
+        }
+
+        .photo-placeholder{
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+            gap:9px;
+            padding:20px;
+            color:var(--muted);
+            text-align:center;
+        }
+
+        .photo-placeholder-icon{
+            color:var(--gold-light);
+            font-size:32px;
+        }
+
+        .upload-button{
+            position:absolute;
+            right:12px;
+            bottom:12px;
+            z-index:2;
+            padding:9px 13px;
+            border:1px solid rgba(240,215,158,0.4);
+            border-radius:9px;
+            color:var(--ivory);
+            font-family:"Inter", sans-serif;
+            font-size:11px;
+            font-weight:600;
+            background:rgba(24,12,16,0.75);
+            cursor:pointer;
+            transition:0.2s ease;
+        }
+
+        .upload-button:hover{
+            color:#24100f;
+            background:var(--gold-light);
+        }
+
+        .photo-input{
+            display:none;
+        }
+
+        .footer{
+            margin-top:24px;
+            text-align:center;
+            color:rgba(255,246,234,0.38);
+            font-size:11px;
+            letter-spacing:0.2px;
+        }
+
+        @media (max-width: 760px){
+            .summary-grid{
+                grid-template-columns:1fr;
+            }
+
+            .date-card-grid, .contact-grid, .photo-grid{
+                grid-template-columns:1fr;
+            }
+
+            .toolbar{
+                flex-direction:column;
+                align-items:stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+
+        <header class="header">
+            <div class="logo">ॐ</div>
+            <div class="small-title">ഓം നമോ നാരായണായ</div>
+            <h1>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</h1>
+            <p class="description">
+                ഗ്രാമദേവനായ നാരായണ ദേവരുടെ 500-ാം  പൗർണമി സത്യനാരായണ പൂജ ദിനത്തിൽ (26/09/2026)
+                സമാരംഭം കുറിച്ച്  സത്യനാരായണ പൂജ തുടങ്ങി 41 വർഷം തികയുന്ന വൈശാഖ പൗർണമിക്ക് (06/05/2027) പരിസമാപ്തി കുറിക്കുന്നു.
+            </p>
+        </header>
+
+        <section class="summary-grid">
+            <article class="summary-card">
+                <div class="summary-label">ഗായത്രി ജപം</div>
+                <div class="summary-value" id="totalCount">0</div>
+                <div class="summary-subtitle">(Person Count)</div>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-label">Date</div>
+                <div class="summary-value" id="selectedDate">—</div>
+                <div class="summary-subtitle">Start Date</div>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-label">അഷ്ടാക്ഷര ജപം:</div>
+                <div class="summary-value" id="todayCount">0</div>
+                <div class="summary-subtitle">(Person Count)</div>
+            </article>
+        </section>
+
+        <section class="details-card">
+            <div class="toolbar">
+                <h2 class="section-title">Important Dates Details</h2>
+            </div>
+
+            <div class="date-card-grid">
+                <article class="date-card">
+                    <div class="date-icon">✦</div>
+                    <div class="date-label">Registration Opens</div>
+                    <div class="date-value">01 Sep 2026</div>
+                    <div class="date-description">
+                        Registration begins for all devotees and participants.
+                    </div>
+                </article>
+
+                <article class="date-card">
+                    <div class="date-icon">◈</div>
+                    <div class="date-label">Main Event</div>
+                    <div class="date-value">17 Sep 2026</div>
+                    <div class="date-description">
+                        The main spiritual event will begin at 9:00 AM.
+                    </div>
+                </article>
+
+                <article class="date-card">
+                    <div class="date-icon">☼</div>
+                    <div class="date-label">Closing Date</div>
+                    <div class="date-value">30 Sep 2026</div>
+                    <div class="date-description">
+                        Final day for registration and participation.
+                    </div>
+                </article>
+            </div>
+
+            <div style="height:26px;"></div>
+
+            <div class="contact-grid">
+                <article class="contact-card">
+                    <div class="contact-icon">☎</div>
+                    <div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">
+                            <a href="tel:+919876543210">+91 98765 43210</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">✉</div>
+                    <div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:contact@example.com">contact@example.com</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="contact-card">
+                    <div class="contact-icon">⌖</div>
+                    <div>
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">
+                            Sri Temple Hall,<br>
+                            Main Road, Bengaluru
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div style="height:26px;"></div>
+
+            <div class="photo-grid">
+                <div class="photo-frame">
+                    <img id="photoPreview1" alt="Uploaded photo 1">
+                    <div class="photo-placeholder" id="placeholder1">
+                        <div class="photo-placeholder-icon">✦</div>
+                        <span>Upload the main event photo</span>
+                    </div>
+                    <label class="upload-button" for="photoInput1">Upload Photo</label>
+                    <input class="photo-input" type="file" id="photoInput1" accept="image/*" data-preview="photoPreview1" data-placeholder="placeholder1">
+                </div>
+
+                <div class="photo-frame">
+                    <img id="photoPreview2" alt="Uploaded photo 2">
+                    <div class="photo-placeholder" id="placeholder2">
+                        <div class="photo-placeholder-icon">◈</div>
+                        <span>Upload a temple or venue photo</span>
+                    </div>
+                    <label class="upload-button" for="photoInput2">Upload Photo</label>
+                    <input class="photo-input" type="file" id="photoInput2" accept="image/*" data-preview="photoPreview2" data-placeholder="placeholder2">
+                </div>
+
+                <div class="photo-frame">
+                    <img id="photoPreview3" alt="Uploaded photo 3">
+                    <div class="photo-placeholder" id="placeholder3">
+                        <div class="photo-placeholder-icon">☼</div>
+                        <span>Upload a special memory</span>
+                    </div>
+                    <label class="upload-button" for="photoInput3">Upload Photo</label>
+                    <input class="photo-input" type="file" id="photoInput3" accept="image/*" data-preview="photoPreview3" data-placeholder="placeholder3">
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            GetCount · Sacred Registration Records
+        </footer>
+    </main>
+
+    <script>
+        // Replace with your final Apps Script Web App URL
+        const API_URL =
+            "https://script.google.com/macros/s/AKfycbyCkXMUWgJl1C5EdDdsp_H4H3bROsngCKXy-5ZwijBpAAnxzEkXmamzFPmVHbXwcKSJDw/exec";
+
+        const totalCountElement =
+            document.getElementById("totalCount");
+
+        async function loadSingleCellValue() {
+            totalCountElement.textContent = "Loading...";
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    cache: "no-store"
+                });
+
+                const responseText = await response.text();
+
+                console.log("Apps Script Response:", responseText);
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Request failed with status ${response.status}`
+                    );
+                }
+
+                const data = JSON.parse(responseText);
+
+                if (!data.success) {
+                    throw new Error(
+                        data.message || "Unable to read the value."
+                    );
+                }
+
+                const value = data.value;
+
+                totalCountElement.textContent =
+                    value === "" || value === null || typeof value === "undefined"
+                        ? "0"
+                        : value;
+
+            } catch (error) {
+                console.error("Google Sheet error:", error);
+                totalCountElement.textContent = "—";
+            }
+        }
+
+        loadSingleCellValue();
+
+        // Image upload preview
+        const photoInputs = document.querySelectorAll(".photo-input");
+
+        photoInputs.forEach((input) => {
+            input.addEventListener("change", function () {
+                const file = this.files[0];
+
+                if (!file) return;
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Please select a valid image file.");
+                    this.value = "";
+                    return;
+                }
+
+                const previewId = this.dataset.preview;
+                const placeholderId = this.dataset.placeholder;
+
+                const preview = document.getElementById(previewId);
+                const placeholder = document.getElementById(placeholderId);
+
+                const imageUrl = URL.createObjectURL(file);
+
+                preview.src = imageUrl;
+                preview.style.display = "block";
+                placeholder.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
