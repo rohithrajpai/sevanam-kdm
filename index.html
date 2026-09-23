@@ -179,7 +179,9 @@
         }
 
         .summary-value{
-            position:relative;
+            position:absolute;
+            left:22px;
+            bottom:24px;
             z-index:1;
             font-family:"Cormorant Garamond", serif;
             font-size:clamp(36px,4vw,52px);
@@ -189,11 +191,13 @@
         }
 
         .summary-subtitle{
-            position:relative;
+            position:absolute;
+            right:22px;
+            bottom:18px;
             z-index:1;
-            margin-top:12px;
             color:rgba(255,246,234,0.6);
             font-size:12px;
+            text-align:right;
         }
 
         .details-card{
@@ -497,20 +501,20 @@
         <section class="summary-grid">
             <article class="summary-card">
                 <div class="summary-label">ഗായത്രി ജപം</div>
-                <div class="summary-value" id="totalCount">not started</div>
-                <div class="summary-subtitle"id="totalreg1">0</div>
+                <div class="summary-value" id="totalCount">Not Started</div>
+                <div class="summary-subtitle"><span id="totalreg1">0</span> Devotees</div>
             </article>
 
             <article class="summary-card">
                 <div class="summary-label">ദിവസം</div>
-                <div class="summary-value" id="selectedDate">Current Date</div>
-                <div class="summary-subtitle">26-09-2026 മുതൽ 06/05/2027 വരെ</div>
+                <div class="summary-value" id="selectedDate">Loading...</div>
+                <div class="summary-subtitle"></div>
             </article>
 
             <article class="summary-card">
                 <div class="summary-label">അഷ്ടാക്ഷര ജപം:</div>
-                <div class="summary-value" id="todayCount">0</div>
-                <div class="summary-subtitle">(Person Count)</div>
+                <div class="summary-value" id="todayCount">Not Started</div>
+                <div class="summary-subtitle"><span id="totalreg2">0</span> Devotees</div>
             </article>
         </section>
 
@@ -605,41 +609,11 @@
 
             <div style="height:26px;"></div>
 
-            <div class="photo-grid">
-                <div class="photo-frame">
-                    <img id="photoPreview1" alt="Uploaded photo 1">
-                    <div class="photo-placeholder" id="placeholder1">
-                        <div class="photo-placeholder-icon">✦</div>
-                        <span>Upload the main event photo</span>
-                    </div>
-                    <label class="upload-button" for="photoInput1">Upload Photo</label>
-                    <input class="photo-input" type="file" id="photoInput1" accept="image/*" data-preview="photoPreview1" data-placeholder="placeholder1">
-                </div>
-
-                <div class="photo-frame">
-                    <img id="photoPreview2" alt="Uploaded photo 2">
-                    <div class="photo-placeholder" id="placeholder2">
-                        <div class="photo-placeholder-icon">◈</div>
-                        <span>Upload a temple or venue photo</span>
-                    </div>
-                    <label class="upload-button" for="photoInput2">Upload Photo</label>
-                    <input class="photo-input" type="file" id="photoInput2" accept="image/*" data-preview="photoPreview2" data-placeholder="placeholder2">
-                </div>
-
-                <div class="photo-frame">
-                    <img id="photoPreview3" alt="Uploaded photo 3">
-                    <div class="photo-placeholder" id="placeholder3">
-                        <div class="photo-placeholder-icon">☼</div>
-                        <span>Upload a special memory</span>
-                    </div>
-                    <label class="upload-button" for="photoInput3">Upload Photo</label>
-                    <input class="photo-input" type="file" id="photoInput3" accept="image/*" data-preview="photoPreview3" data-placeholder="placeholder3">
-                </div>
-            </div>
+            
         </section>
 
         <footer class="footer">
-            GetCount · Sacred Registration Records
+            ॐ नमो नारायणाय
         </footer>
     </main>
 
@@ -650,6 +624,19 @@
 
         const totalCountElement =
             document.getElementById("totalreg1");
+
+        function displayTodayDate() {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+
+            document.getElementById("selectedDate").textContent = formattedDate;
+        }
+
+        displayTodayDate();
 
         async function loadSingleCellValue() {
             totalCountElement.textContent = "Loading...";
