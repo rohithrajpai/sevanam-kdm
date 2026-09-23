@@ -501,7 +501,7 @@
         <section class="summary-grid">
             <article class="summary-card">
                 <div class="summary-label">ഗായത്രി ജപം</div>
-                <div class="summary-value" id="totalCount">Not Started</div>
+                <div class="summary-value" id="totalCount1">0</div>
                 <div class="summary-subtitle"><span id="totalreg1">0</span> Devotees</div>
             </article>
 
@@ -513,7 +513,7 @@
 
             <article class="summary-card">
                 <div class="summary-label">അഷ്ടാക്ഷര ജപം:</div>
-                <div class="summary-value" id="todayCount">Not Started</div>
+                <div class="summary-value" id="todayCount2">0</div>
                 <div class="summary-subtitle"><span id="totalreg2">0</span> Devotees</div>
             </article>
         </section>
@@ -619,111 +619,122 @@
 
     <script>
         // Replace with your final Apps Script Web App URL
-				const API_URL =
-		  "https://script.google.com/macros/s/AKfycbx4tdKW86L0raWPsjEI__fbLqsMFVQOEHfbyEsKcVfSNM4G0GfS_gCFqs9VlXqqy0tQVg/exec";
+				<script>
+    const REGISTRATION_API_URL =
+        "https://script.google.com/macros/s/AKfycbyJnsqmfHyFr0NA_z47se_4VyCRlqV3wVokDvKNMXRWxCptAFw_qSvxi66JqYHN0ncuQA/exec";
 
-		const cellElements = {
-		  E2: document.getElementById("totalreg1"),
-		  E3: document.getElementById("totalreg2")
-		};
+    const COUNT_API_URL =
+        "https://script.google.com/macros/s/AKfycbxnfNf6PP-xiR5Ag8zS02UABKym4rdAPFUPFaS_-iYNfTJ6Km1lyartrPty4qBMFTg5/exec";
 
-		function displayTodayDate() {
-		  const today = new Date();
+    const registrationElements = {
+        E2: document.getElementById("totalreg1"),
+        E3: document.getElementById("totalreg2")
+    };
 
-		  const formattedDate = today.toLocaleDateString("en-GB", {
-			day: "2-digit",
-			month: "2-digit",
-			year: "numeric"
-		  });
+    const countElements = {
+        D2: document.getElementById("totalcount1"),
+        D3: document.getElementById("totalcount2")
+    };
 
-		  document.getElementById("selectedDate").textContent = formattedDate;
-		}
+    function displayTodayDate() {
+        const today = new Date();
 
-		displayTodayDate();
-
-		async function loadCellValues() {
-		  Object.values(cellElements).forEach((element) => {
-			if (element) {
-			  element.textContent = "Loading...";
-			}
-		  });
-
-		  try {
-			const response = await fetch(API_URL, {
-			  method: "GET",
-			  cache: "no-store"
-			});
-
-			const responseText = await response.text();
-
-			console.log("Apps Script Response:", responseText);
-
-			if (!response.ok) {
-			  throw new Error(`Request failed with status ${response.status}`);
-			}
-
-			const data = JSON.parse(responseText);
-
-			if (!data.success) {
-			  throw new Error(data.message || "Unable to read sheet values.");
-			}
-
-			const values = data.values || {};
-
-			Object.entries(cellElements).forEach(([cellAddress, element]) => {
-			  if (!element) {
-				return;
-			  }
-
-			  const value = values[cellAddress];
-
-			  element.textContent =
-				value === "" || value === null || typeof value === "undefined"
-				  ? "0"
-				  : value;
-			});
-
-		  } catch (error) {
-			console.error("Google Sheet error:", error);
-
-			Object.values(cellElements).forEach((element) => {
-			  if (element) {
-				element.textContent = "—";
-			  }
-			});
-		  }
-		}
-
-		loadCellValues();
-
-        // Image upload preview
-        const photoInputs = document.querySelectorAll(".photo-input");
-
-        photoInputs.forEach((input) => {
-            input.addEventListener("change", function () {
-                const file = this.files[0];
-
-                if (!file) return;
-
-                if (!file.type.startsWith("image/")) {
-                    alert("Please select a valid image file.");
-                    this.value = "";
-                    return;
-                }
-
-                const previewId = this.dataset.preview;
-                const placeholderId = this.dataset.placeholder;
-
-                const preview = document.getElementById(previewId);
-                const placeholder = document.getElementById(placeholderId);
-
-                const imageUrl = URL.createObjectURL(file);
-
-                preview.src = imageUrl;
-                preview.style.display = "block";
-                placeholder.style.display = "none";
-            });
+        const formattedDate = today.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
         });
-    </script>
+
+        document.getElementById("selectedDate").textContent =
+            formattedDate;
+    }
+
+    function setLoading(elements) {
+        Object.values(elements).forEach((element) => {
+            if (element) {
+                element.textContent = "Loading...";
+            }
+        });
+    }
+
+    function setError(elements) {
+        Object.values(elements).forEach((element) => {
+            if (element) {
+                element.textContent = "—";
+            }
+        });
+    }
+
+    function displayValues(elements, values) {
+        Object.entries(elements).forEach(([cellAddress, element]) => {
+            if (!element) {
+                return;
+            }
+
+            const value = values[cellAddress];
+
+            element.textContent =
+                value === "" ||
+                value === null ||
+                typeof value === "undefined"
+                    ? "0"
+                    : value;
+        });
+    }
+
+    async function loadSheetValues(apiUrl, elements, label) {
+        setLoading(elements);
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+            const responseText = await response.text();
+
+            console.log(`${label} API response:`, responseText);
+
+            if (!response.ok) {
+                throw new Error(
+                    `${label} request failed with status ${response.status}`
+                );
+            }
+
+            const data = JSON.parse(responseText);
+
+            if (!data.success) {
+                throw new Error(
+                    data.message || `Unable to read ${label} values.`
+                );
+            }
+
+            displayValues(elements, data.values || {});
+
+        } catch (error) {
+            console.error(`${label} Google Sheet error:`, error);
+            setError(elements);
+        }
+    }
+
+    displayTodayDate();
+
+    loadSheetValues(
+        REGISTRATION_API_URL,
+        registrationElements,
+        "Registration"
+    );
+
+    loadSheetValues(
+        COUNT_API_URL,
+        countElements,
+        "Count"
+    );
+
+    
+</script>
+
+        
+</script>
 </body>
 </html>
