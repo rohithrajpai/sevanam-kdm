@@ -450,8 +450,8 @@
         <section class="summary-grid">
             <article class="summary-card">
                 <div class="summary-label">ഗായത്രി ജപം</div>
-                <div class="summary-value" id="totalCount">0</div>
-                <div class="summary-subtitle">(Person Count)</div>
+                <div class="summary-value" id="totalCount">Not Started</div>
+                <div class="summary-subtitle"id="totalreg1">0</div>
             </article>
 
             <article class="summary-card">
@@ -582,7 +582,7 @@
             "https://script.google.com/macros/s/AKfycbyJnsqmfHyFr0NA_z47se_4VyCRlqV3wVokDvKNMXRWxCptAFw_qSvxi66JqYHN0ncuQA/exec";
 
         const totalCountElement =
-            document.getElementById("totalCount");
+            document.getElementById("totalreg1");
 
         async function loadSingleCellValue() {
             totalCountElement.textContent = "Loading...";
