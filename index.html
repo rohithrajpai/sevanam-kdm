@@ -619,66 +619,82 @@
 
     <script>
         // Replace with your final Apps Script Web App URL
-        const API_URL =
-            "https://script.google.com/macros/s/AKfycbyJnsqmfHyFr0NA_z47se_4VyCRlqV3wVokDvKNMXRWxCptAFw_qSvxi66JqYHN0ncuQA/exec";
+				const API_URL =
+		  "https://script.google.com/macros/s/AKfycbyJnsqmfHyFr0NA_z47se_4VyCRlqV3wVokDvKNMXRWxCptAFw_qSvxi66JqYHN0ncuQA/exec";
 
-        const totalCountElement =
-            document.getElementById("totalreg1");
+		const cellElements = {
+		  E2: document.getElementById("totalreg1"),
+		  E3: document.getElementById("totalreg2")
+		};
 
-        function displayTodayDate() {
-            const today = new Date();
-            const formattedDate = today.toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-            });
+		function displayTodayDate() {
+		  const today = new Date();
 
-            document.getElementById("selectedDate").textContent = formattedDate;
-        }
+		  const formattedDate = today.toLocaleDateString("en-GB", {
+			day: "2-digit",
+			month: "2-digit",
+			year: "numeric"
+		  });
 
-        displayTodayDate();
+		  document.getElementById("selectedDate").textContent = formattedDate;
+		}
 
-        async function loadSingleCellValue() {
-            totalCountElement.textContent = "Loading...";
+		displayTodayDate();
 
-            try {
-                const response = await fetch(API_URL, {
-                    method: "GET",
-                    cache: "no-store"
-                });
+		async function loadCellValues() {
+		  Object.values(cellElements).forEach((element) => {
+			if (element) {
+			  element.textContent = "Loading...";
+			}
+		  });
 
-                const responseText = await response.text();
+		  try {
+			const response = await fetch(API_URL, {
+			  method: "GET",
+			  cache: "no-store"
+			});
 
-                console.log("Apps Script Response:", responseText);
+			const responseText = await response.text();
 
-                if (!response.ok) {
-                    throw new Error(
-                        `Request failed with status ${response.status}`
-                    );
-                }
+			console.log("Apps Script Response:", responseText);
 
-                const data = JSON.parse(responseText);
+			if (!response.ok) {
+			  throw new Error(`Request failed with status ${response.status}`);
+			}
 
-                if (!data.success) {
-                    throw new Error(
-                        data.message || "Unable to read the value."
-                    );
-                }
+			const data = JSON.parse(responseText);
 
-                const value = data.value;
+			if (!data.success) {
+			  throw new Error(data.message || "Unable to read sheet values.");
+			}
 
-                totalCountElement.textContent =
-                    value === "" || value === null || typeof value === "undefined"
-                        ? "0"
-                        : value;
+			const values = data.values || {};
 
-            } catch (error) {
-                console.error("Google Sheet error:", error);
-                totalCountElement.textContent = "—";
-            }
-        }
+			Object.entries(cellElements).forEach(([cellAddress, element]) => {
+			  if (!element) {
+				return;
+			  }
 
-        loadSingleCellValue();
+			  const value = values[cellAddress];
+
+			  element.textContent =
+				value === "" || value === null || typeof value === "undefined"
+				  ? "0"
+				  : value;
+			});
+
+		  } catch (error) {
+			console.error("Google Sheet error:", error);
+
+			Object.values(cellElements).forEach((element) => {
+			  if (element) {
+				element.textContent = "—";
+			  }
+			});
+		  }
+		}
+
+		loadCellValues();
 
         // Image upload preview
         const photoInputs = document.querySelectorAll(".photo-input");
