@@ -483,13 +483,69 @@
                 grid-template-columns:1fr;
             }
         }
+		
+		.header::before,
+		.header::after {
+			display: none;
+		}
+
+		.header-logos {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			align-items: center;
+			gap: 20px;
+			max-width: 520px;
+			margin: 0 auto 14px;
+		}
+
+		.header-logo-side {
+			width: 76px;
+			height: 76px;
+			object-fit: contain;
+		}
+
+		.header-logo-side:first-child {
+			justify-self: start;
+		}
+
+		.header-logo-side:last-child {
+			justify-self: end;
+		}
+
+		.header-logo-center {
+			width: 92px;
+			height: 92px;
+			object-fit: contain;
+			border-radius: 50%;
+		}
+
+		@media (max-width: 500px) {
+			.header-logos {
+				max-width: 360px;
+				gap: 12px;
+			}
+
+			.header-logo-side {
+				width: 56px;
+				height: 56px;
+			}
+
+			.header-logo-center {
+				width: 72px;
+				height: 72px;
+			}
+		}
     </style>
 </head>
 <body>
     <main class="page">
 
         <header class="header">
-            <div class="logo">ॐ</div>
+            <div class="header-logos">
+				<img class="header-logo-side" src="sevanam-logo.png" alt="Sevanam logo">
+				<img class="header-logo-center" src="narayana-devar.jpeg" alt="Narayana Devar">
+				<img class="header-logo-side" src="svss-logo.png" alt="SVSS logo">
+			</div>
             <div class="small">ഓം നമോ നാരായണായ</div>
             <h1>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</h1>
             <p class="description">
