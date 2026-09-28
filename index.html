@@ -506,7 +506,7 @@
             </article>
 
             <article class="summary-card">
-                <div class="summary-label">ദിവസം</div>
+                <div class="summary-label"><span id="pdays">0</span>-ാം ദിവസം </div>
                 <div class="summary-value" id="selectedDate">Loading...</div>
                 <div class="summary-subtitle"></div>
             </article>
@@ -631,7 +631,8 @@
 
     const countElements = {
         D2: document.getElementById("totalcount1"),
-        D3: document.getElementById("totalcount2")
+        D3: document.getElementById("totalcount2"),
+        G8: document.getElementById("pdays")
     };
 
     function displayTodayDate() {
