@@ -1,838 +1,785 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#4b1d28">
-
     <title>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root{
-            --bg-1: #180c10;
-            --bg-2: #2a1118;
-            --bg-3: #4c1f2d;
-            --card: rgba(255, 247, 230, 0.07);
-            --border: rgba(255, 216, 136, 0.28);
+        :root {
+            color-scheme: dark;
+            --bg: #210e14;
+            --panel: rgba(255, 247, 230, .07);
+            --panel-strong: rgba(0, 0, 0, .16);
+            --border: rgba(255, 216, 136, .25);
             --ivory: #fff6ea;
-            --gold: #d9b773;
+            --gold: #efa92f;
             --gold-soft: #efd8a2;
-            --saffron: #d97706;
-            --maroon: #7a1e2d;
-            --green: #9fe29a;
-            --muted: rgba(255, 244, 226, 0.72);
+            --muted: rgba(255, 244, 226, .72);
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { box-sizing: border-box; }
 
-        body{
-            min-height:100vh;
-            padding:30px 16px;
-            font-family:"Inter", sans-serif;
-            color:var(--ivory);
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px 16px 36px;
+            color: var(--ivory);
+            font-family: Inter, sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(217,119,6,0.15), transparent 26%),
-                radial-gradient(circle at bottom right, rgba(255,208,128,0.12), transparent 20%),
-                linear-gradient(135deg, var(--bg-1), var(--bg-2) 35%, var(--bg-3));
-            overflow-x:hidden;
-            position:relative;
+                radial-gradient(ellipse at top, rgba(217, 119, 6, .13), transparent 38%),
+                linear-gradient(145deg, #180c10, #35151f 55%, #4c1f2d);
         }
 
-        body::before, body::after{
-            content:"";
-            position:fixed;
-            width:480px;
-            height:480px;
-            border-radius:50%;
-            filter:blur(12px);
-            pointer-events:none;
-            z-index:0;
-            opacity:0.16;
+        main { width: min(100%, 960px); margin: 0 auto; }
+
+        .page-header {
+            margin: 0 auto 24px;
+            text-align: center;
         }
 
-        body::before{
-            top:-170px;
-            right:-130px;
-            background:radial-gradient(circle, rgba(217,183,115,0.9), transparent 62%);
+        .header-logos {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 20px;
+            max-width: 520px;
+            margin: 0 auto 14px;
         }
 
-        body::after{
-            bottom:-180px;
-            left:-130px;
-            background:radial-gradient(circle, rgba(217,119,6,0.75), transparent 62%);
+        .header-logo-side {
+            width: 76px;
+            height: 76px;
+            object-fit: contain;
         }
 
-        .page{
-            width:100%;
-            max-width:1180px;
-            margin:0 auto;
-            position:relative;
-            z-index:1;
+        .header-logo-side:first-child { justify-self: start; }
+        .header-logo-side:last-child { justify-self: end; }
+
+        .header-logo-center {
+            display: block;
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            object-fit: contain;
         }
 
-        .header{
-            position:relative;
-            text-align:center;
-            padding:18px 0 10px;
-            margin-bottom:26px;
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--gold-soft);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
-        .header::before,
-        .header::after{
-            content:"✦";
-            position:absolute;
-            top:0;
-            font-size:20px;
-            color:var(--gold-soft);
-            opacity:0.8;
-            text-shadow:0 0 16px rgba(239,216,162,0.6);
+        h1 {
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(36px, 7vw, 58px);
+            line-height: 1.1;
         }
 
-        .header::before{ left:50%; transform:translateX(-120px); }
-        .header::after{ right:50%; transform:translateX(120px); }
-
-        .logo{
-            width:72px;
-            height:72px;
-            margin:0 auto 14px;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:32px;
-            color:var(--gold-soft);
-            background:linear-gradient(135deg, rgba(239,216,162,0.15), rgba(217,119,6,0.12));
-            border:1px solid rgba(239,216,162,0.4);
-            box-shadow:0 0 30px rgba(239,216,162,0.12);
+        .description {
+            max-width: 680px;
+            margin: 10px auto 0;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
-        .small-title{
-            color:var(--gold-soft);
-            letter-spacing:4px;
-            font-size:11px;
-            text-transform:uppercase;
-            font-weight:700;
-            margin-bottom:8px;
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 4px;
+            margin-bottom: 22px;
+            padding: 5px;
+            border: 1px solid rgba(255, 216, 136, .13);
+            border-radius: 16px;
+            background: rgba(24, 8, 5, .72);
         }
 
-        h1{
-            font-family:"Cormorant Garamond", serif;
-            font-size: clamp(42px, 6vw, 66px);
-            line-height:1;
-            letter-spacing:0.5px;
-            font-weight:600;
+        .tab {
+            min-height: 48px;
+            padding: 10px 12px;
+            border: 0;
+            border-radius: 12px;
+            color: rgba(239, 216, 162, .72);
+            background: transparent;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .description{
-            max-width:720px;
-            margin:12px auto 0;
-            color:var(--muted);
-            line-height:1.8;
-            font-size:15px;
+        .tab:hover { color: var(--ivory); }
+
+        .tab[aria-selected="true"] {
+            color: #24100f;
+            background: var(--gold);
         }
 
-        .summary-grid{
-            display:grid;
-            grid-template-columns:repeat(3, minmax(0, 1fr));
-            gap:18px;
-            margin-bottom:24px;
+        .tab:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 3px solid var(--ivory);
+            outline-offset: 3px;
         }
 
-        .summary-card, .details-card{
-            position:relative;
-            overflow:hidden;
-            background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
-            border:1px solid var(--border);
-            border-radius:22px;
-            box-shadow:0 28px 60px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+        .panel {
+            padding: clamp(18px, 4vw, 32px);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--panel);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .24);
         }
 
-        .summary-card{
-            min-height:150px;
-            padding:22px 22px 18px;
+        .panel[hidden] { display: none; }
+
+        .panel h2 {
+            margin: 0 0 8px;
+            color: var(--gold-soft);
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(30px, 5vw, 42px);
         }
 
-        .summary-card::before{
-            content:"";
-            position:absolute;
-            width:130px;
-            height:130px;
-            right:-30px;
-            bottom:-30px;
-            border-radius:50%;
-            background:radial-gradient(circle, rgba(239,216,162,0.12), transparent 65%);
+        .panel-copy {
+            margin: 0 0 22px;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
-        .summary-label{
-            position:relative;
-            z-index:1;
-            color:var(--gold-soft);
-            font-size:14px;
-            text-transform:uppercase;
-            letter-spacing:2px;
-            margin-bottom:16px;
-            font-weight:700;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .summary-value{
-            position:absolute;
-            left:22px;
-            bottom:24px;
-            z-index:1;
-            font-family:"Cormorant Garamond", serif;
-            font-size:clamp(36px,4vw,52px);
-            line-height:1;
-            font-weight:600;
-            color:var(--ivory);
+        .contact-card {
+            display: flex;
+            min-width: 0;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .035);
         }
 
-        .summary-subtitle{
-            position:absolute;
-            right:22px;
-            bottom:18px;
-            z-index:1;
-            color:rgba(255,246,234,0.6);
-            font-size:12px;
-            text-align:right;
+        .contact-icon {
+            display: grid;
+            flex: 0 0 42px;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border: 1px solid rgba(239, 216, 162, .3);
+            border-radius: 50%;
+            color: var(--gold-soft);
+            background: rgba(122, 30, 45, .75);
         }
 
-        .details-card{
-            padding:24px 22px 14px;
+        .contact-label {
+            margin: 2px 0 7px;
+            color: var(--gold-soft);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.5;
         }
 
-        .registration-card{
-            display:grid;
-            grid-template-columns:repeat(2, minmax(0, 1fr));
-            gap:18px;
-            margin-bottom:24px;
-            padding:24px 26px;
-            border:1px solid var(--border);
-            border-radius:22px;
-            background:linear-gradient(135deg, rgba(217,183,115,0.12), rgba(255,255,255,0.035));
-            box-shadow:0 20px 45px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+        .contact-value a {
+            color: var(--ivory);
+            font-size: 13px;
+            text-decoration: none;
         }
 
-        .registration-item{
-            min-width:0;
-            padding:16px 18px;
-            border:1px solid rgba(255,216,136,0.2);
-            border-radius:17px;
-            background:rgba(255,255,255,0.035);
+        .contact-value a:hover { color: var(--gold-soft); }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 22px 0;
         }
 
-        .registration-title{
-            margin-bottom:7px;
-            color:var(--gold-soft);
-            font-size:16px;
-            font-weight:700;
+        .summary-card {
+            min-height: 118px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .035);
         }
 
-        .registration-link{
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-            margin-top:4px;
-            padding:10px 15px;
-            border:1px solid rgba(240,215,158,0.45);
-            border-radius:10px;
-            color:#24100f;
-            background:var(--gold-soft);
-            font-size:12px;
-            font-weight:700;
-            text-decoration:none;
-            transition:0.2s ease;
+        .summary-label {
+            color: var(--gold-soft);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .registration-link:hover{
-            background:var(--ivory);
+        .summary-value {
+            display: block;
+            margin-top: 12px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 38px;
+            line-height: 1;
         }
 
-        .finger-icon{
-            width:16px;
-            height:16px;
-            fill:currentColor;
-            flex-shrink:0;
+        .summary-note {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 12px;
         }
 
-        .details-card::before{
-            content:"";
-            position:absolute;
-            inset:0;
-            background:
-                radial-gradient(circle at 10% 0%, rgba(217,183,115,0.08), transparent 25%),
-                radial-gradient(circle at 90% 100%, rgba(217,119,6,0.06), transparent 18%);
-            pointer-events:none;
+        .important-dates {
+            margin-top: 28px;
+            padding: clamp(18px, 4vw, 28px);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--panel);
         }
 
-        .toolbar{
-            position:relative;
-            display:flex;
-            align-items:flex-end;
-            justify-content:space-between;
-            gap:18px;
-            padding-bottom:16px;
-            border-bottom:1px solid rgba(255,216,136,0.16);
-            margin-bottom:14px;
+        .important-dates h2 {
+            margin: 0 0 16px;
+            color: var(--gold-soft);
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(30px, 5vw, 42px);
         }
 
-        .section-title{
-            font-family:"Cormorant Garamond", serif;
-            font-size:clamp(30px,3vw,42px);
-            font-weight:600;
-            color:var(--ivory);
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .date-card-grid, .contact-grid, .photo-grid{
-            display:grid;
-            gap:18px;
+        .date-card {
+            min-width: 0;
+            padding: 16px;
+            border: 1px solid rgba(255, 216, 136, .2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .035);
         }
 
-        .date-card-grid{
-            grid-template-columns:repeat(3, minmax(0, 1fr));
+        .date-name {
+            margin: 0 0 8px;
+            color: var(--gold-soft);
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        .contact-grid{
-            grid-template-columns:repeat(3, minmax(0, 1fr));
+        .date-label {
+            margin: 0 0 7px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
-        .photo-grid{
-            grid-template-columns:repeat(3, minmax(0, 1fr));
+        .date-description {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        .date-card, .contact-card{
-            position:relative;
-            overflow:hidden;
-            border:1px solid rgba(255,216,136,0.2);
-            border-radius:17px;
-            background:rgba(255,255,255,0.035);
-            padding:18px;
+        .action-link, button.action {
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border: 1px solid rgba(240, 215, 158, .55);
+            border-radius: 10px;
+            color: #24100f;
+            background: var(--gold-soft);
+            font: inherit;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        .date-card::after{
-            content:"";
-            position:absolute;
-            right:-35px;
-            bottom:-40px;
-            width:110px;
-            height:110px;
-            border-radius:50%;
-            background:radial-gradient(circle, rgba(217,119,6,0.18), transparent 68%);
+        .action-link:hover, button.action:hover { background: var(--ivory); }
+
+        .option-select {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 0 0 20px;
+            padding: 0;
+            border: 0;
         }
 
-        .date-icon, .contact-icon{
-            width:42px;
-            height:42px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            border-radius:50%;
-            color:var(--gold-light);
-            font-size:18px;
-            background:rgba(122,30,45,0.75);
-            border:1px solid rgba(240,215,158,0.3);
-            margin-bottom:12px;
+        .option-select legend {
+            margin-bottom: 12px;
+            color: var(--gold-soft);
+            font-size: 14px;
+            font-weight: 700;
         }
 
-        .date-label, .contact-label{
-            margin-bottom:6px;
-            color:var(--gold-light);
-            font-size:10px;
-            font-weight:700;
-            letter-spacing:1.5px;
-            text-transform:uppercase;
+        .option-choice {
+            display: flex;
+            min-height: 58px;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--panel-strong);
+            cursor: pointer;
         }
 
-        .date-value{
-            margin-bottom:7px;
-            color:var(--ivory);
-            font-family:"Cormorant Garamond", serif;
-            font-size:27px;
-            font-weight:600;
+        .option-choice.selected {
+            border-color: var(--gold-soft);
+            color: #24100f;
+            background: var(--gold-soft);
         }
 
-        .date-description, .contact-value{
-            color:var(--muted);
-            font-size:12px;
-            line-height:1.6;
+        .option-choice input { flex: 0 0 auto; accent-color: #7a1e2d; }
+        .option-choice span { line-height: 1.5; }
+
+        .search-row {
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255, 216, 136, .16);
+            border-radius: 15px;
+            background: rgba(0, 0, 0, .12);
         }
 
-        .contact-card{
-            display:flex;
-            align-items:flex-start;
-            gap:12px;
+        .phone-field { flex: 1; min-width: 0; }
+
+        .phone-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold-soft);
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .contact-value a{
-            color:var(--ivory);
-            text-decoration:none;
+        .phone-field input {
+            display: block;
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--ivory);
+            background: rgba(0, 0, 0, .22);
+            font: inherit;
         }
 
-        .contact-value a:hover{ color:var(--gold-light); }
+        .phone-field input::placeholder { color: rgba(255, 244, 226, .48); }
 
-        .photo-frame{
-            position:relative;
-            aspect-ratio:1 / 1.08;
-            overflow:hidden;
-            border:1px solid rgba(240,215,158,0.4);
-            border-radius:18px;
-            background:linear-gradient(135deg, rgba(217,119,6,0.15), rgba(122,30,45,0.28));
-            box-shadow:inset 0 0 0 7px rgba(255,247,230,0.035), 0 12px 28px rgba(0,0,0,0.2);
+        .search-row .action:not(.secondary) {
+            min-width: 140px;
+            color: var(--gold-soft);
+            background: rgba(80, 29, 17, .72);
         }
 
-        .photo-frame::before{
-            content:"✦";
-            position:absolute;
-            top:11px;
-            left:14px;
-            z-index:1;
-            color:var(--gold-light);
-            font-size:20px;
-            opacity:0.8;
+        .search-row .action:not(.secondary):hover {
+            color: #24100f;
+            background: var(--gold-soft);
         }
 
-        .photo-frame::after{
-            content:"";
-            position:absolute;
-            right:14px;
-            bottom:12px;
-            z-index:1;
-            width:18px;
-            height:18px;
-            border-right:1px solid var(--gold-light);
-            border-bottom:1px solid var(--gold-light);
-            opacity:0.8;
+        button.secondary {
+            min-width: auto;
+            color: var(--ivory);
+            background: transparent;
         }
 
-        .photo-frame img{
-            width:100%;
-            height:100%;
-            display:none;
-            object-fit:cover;
+        button.secondary:hover { color: #24100f; background: var(--gold-soft); }
+
+        .results {
+            margin-top: 24px;
         }
 
-        .photo-placeholder{
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            gap:9px;
-            padding:20px;
-            color:var(--muted);
-            text-align:center;
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(0, 0, 0, .08);
         }
 
-        .photo-placeholder-icon{
-            color:var(--gold-light);
-            font-size:32px;
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255, 216, 136, .15); }
+        th { color: var(--gold-soft); background: rgba(0, 0, 0, .15); white-space: nowrap; }
+        tbody tr:last-child td { border-bottom: 0; }
+
+        #status {
+            min-height: 21px;
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 13px;
         }
 
-        .upload-button{
-            position:absolute;
-            right:12px;
-            bottom:12px;
-            z-index:2;
-            padding:9px 13px;
-            border:1px solid rgba(240,215,158,0.4);
-            border-radius:9px;
-            color:var(--ivory);
-            font-family:"Inter", sans-serif;
-            font-size:11px;
-            font-weight:600;
-            background:rgba(24,12,16,0.75);
-            cursor:pointer;
-            transition:0.2s ease;
+        .footer {
+            margin-top: 24px;
+            color: rgba(255, 246, 234, .48);
+            font-size: 12px;
+            text-align: center;
         }
 
-        .upload-button:hover{
-            color:#24100f;
-            background:var(--gold-light);
+        @media (max-width: 640px) {
+            body { padding: 20px 12px 30px; }
+            .tabs { gap: 2px; padding: 4px; }
+            .tab { min-height: 46px; padding: 8px 5px; font-size: 13px; }
+            .option-select, .summary-grid { grid-template-columns: 1fr; }
+            .date-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .search-row { align-items: stretch; flex-direction: column; }
+            .search-row button { width: 100%; }
+            th, td { padding: 12px 10px; }
+            th { font-size: 12px; }
+            td { font-size: 14px; }
+            .header-logos { max-width: 360px; gap: 12px; }
+            .header-logo-side { width: 56px; height: 56px; }
+            .header-logo-center { width: 72px; height: 72px; }
         }
-
-        .photo-input{
-            display:none;
-        }
-
-        .footer{
-            margin-top:24px;
-            text-align:center;
-            color:rgba(255,246,234,0.38);
-            font-size:11px;
-            letter-spacing:0.2px;
-        }
-
-        @media (max-width: 760px){
-            .summary-grid{
-                grid-template-columns:1fr;
-            }
-
-            .date-card-grid, .contact-grid, .photo-grid{
-                grid-template-columns:1fr;
-            }
-
-            .toolbar{
-                flex-direction:column;
-                align-items:stretch;
-            }
-
-            .registration-card{
-                grid-template-columns:1fr;
-            }
-        }
-		
-		.header::before,
-		.header::after {
-			display: none;
-		}
-
-		.header-logos {
-			display: grid;
-			grid-template-columns: 1fr auto 1fr;
-			align-items: center;
-			gap: 20px;
-			max-width: 520px;
-			margin: 0 auto 14px;
-		}
-
-		.header-logo-side {
-			width: 76px;
-			height: 76px;
-			object-fit: contain;
-		}
-
-		.header-logo-side:first-child {
-			justify-self: start;
-		}
-
-		.header-logo-side:last-child {
-			justify-self: end;
-		}
-
-		.header-logo-center {
-			width: 92px;
-			height: 92px;
-			object-fit: contain;
-			border-radius: 50%;
-		}
-
-		@media (max-width: 500px) {
-			.header-logos {
-				max-width: 360px;
-				gap: 12px;
-			}
-
-			.header-logo-side {
-				width: 56px;
-				height: 56px;
-			}
-
-			.header-logo-center {
-				width: 72px;
-				height: 72px;
-			}
-		}
-		
-		.date-card-heading {
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			margin-bottom: 12px;
-		}
-
-		.date-card-heading .date-icon {
-			flex-shrink: 0;
-			margin-bottom: 0;
-		}
-
-		.date-card-heading .date-value {
-			margin-bottom: 0;
-		}
     </style>
 </head>
 <body>
-    <main class="page">
-
-        <header class="header">
+    <main>
+        <header class="page-header">
             <div class="header-logos">
-				<img class="header-logo-side" src="sevanam-logo.png" alt="Sevanam logo">
-				<img class="header-logo-center" src="narayana-devar.jpeg" alt="Narayana Devar">
-				<img class="header-logo-side" src="svss-logo.png" alt="SVSS logo">
-			</div>
-            <div class="small">ഓം നമോ നാരായണായ</div>
+                <img class="header-logo-side" src="sevanam-logo.png" alt="Sevanam logo">
+                <img class="header-logo-center" src="narayana-devar.jpeg" alt="Narayana Devar">
+                <img class="header-logo-side" src="svss-logo.png" alt="SVSS logo">
+            </div>
+            <p class="eyebrow">ഓം നമോ നാരായണായ</p>
             <h1>അഷ്ടാക്ഷര, ലക്ഷഗായത്രി ജപയജ്ഞം</h1>
-            <p class="description">
-                ഗ്രാമദേവനായ നാരായണ ദേവരുടെ 500-ാം  പൗർണ്ണമി സത്യനാരായണ പൂജ ദിനത്തിൽ (26/09/2026)
-                സമാരംഭം കുറിച്ച്  സത്യനാരായണ പൂജ തുടങ്ങി 41 വർഷം തികയുന്ന വൈശാഖ പൗർണ്ണമിക്ക് (06/05/2027) പരിസമാപ്തി കുറിക്കുന്നു.
-            </p>
+			<h2>കാരണക്കോടം</h2>
+            <p class="description"></p>
         </header>
-
-        <section class="summary-grid">
+		
+		<section class="summary-grid" aria-label="Japam totals">
             <article class="summary-card">
-                <div class="summary-label">ഗായത്രി ജപം</div>
-                <div class="summary-value" id="totalcount1">0</div>
-                <div class="summary-subtitle"><span id="totalreg1">0</span> Devotees</div>
+                <span class="summary-label">ഗായത്രി ജപം</span>
+                <strong class="summary-value" id="totalcount1">Loading...</strong>
+                <span class="summary-note"><span id="totalreg1">Loading...</span> Devotees</span>
             </article>
-
             <article class="summary-card">
-                <div class="summary-label"><span id="pdays">0</span>-ാം ദിവസം </div>
-                <div class="summary-value" id="selectedDate">Loading...</div>
-                <div class="summary-subtitle"></div>
+                <span class="summary-label"><span id="pdays">0</span>-ാം ദിവസം</span>
+                <strong class="summary-value" id="selectedDate">Loading...</strong>
+                <span class="summary-note">ഇന്നത്തെ തീയതി</span>
             </article>
-
             <article class="summary-card">
-                <div class="summary-label">അഷ്ടാക്ഷര ജപം:</div>
-                <div class="summary-value" id="totalcount2">0</div>
-                <div class="summary-subtitle"><span id="totalreg2">0</span> Devotees</div>
+                <span class="summary-label">അഷ്ടാക്ഷര ജപം</span>
+                <strong class="summary-value" id="totalcount2">Loading...</strong>
+                <span class="summary-note"><span id="totalreg2">Loading...</span> Devotees</span>
             </article>
         </section>
 
-        <section class="registration-card" aria-labelledby="registration-title">
-            <div class="registration-item">
-                <div class="registration-title" id="registration-title">Registration Link</div>
-                <a class="registration-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfYY3Bk5MUa0qdVtESkToaimTSfJ5qihVky0floj4zcoctdIA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
-                    <svg class="finger-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.5 11V5.5a1.5 1.5 0 0 1 3 0V11h1V3.5a1.5 1.5 0 0 1 3 0V11h1V6.5a1.5 1.5 0 0 1 3 0v7.75c0 3.73-2.77 6.75-6.5 6.75h-.5c-2.76 0-4.98-1.58-6.04-3.78L4.1 13.9a1.5 1.5 0 0 1 2.7-1.3L8.5 15V11Z"/>
-                    </svg>
-                    Click Here
-                </a>
-            </div>
-            <div class="registration-item">
-                <div class="registration-title">Submit Count</div>
-                <a class="registration-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeRgGfkWG2eNlc6cGO2xu7ysh_8dMLtjiFNoWAcjsb8qIxktw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
-                    <svg class="finger-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.5 11V5.5a1.5 1.5 0 0 1 3 0V11h1V3.5a1.5 1.5 0 0 1 3 0V11h1V6.5a1.5 1.5 0 0 1 3 0v7.75c0 3.73-2.77 6.75-6.5 6.75h-.5c-2.76 0-4.98-1.58-6.04-3.78L4.1 13.9a1.5 1.5 0 0 1 2.7-1.3L8.5 15V11Z"/>
-                    </svg>
-                    Click Here
-                </a>
-            </div>
+        <div class="tabs" role="tablist" aria-label="Japam options">
+            <button class="tab" id="tab-register" type="button" role="tab" aria-selected="true" aria-controls="panel-register" tabindex="0">Register</button>
+            <button class="tab" id="tab-submit" type="button" role="tab" aria-selected="false" aria-controls="panel-submit" tabindex="-1">Submit Count</button>
+            <button class="tab" id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search" tabindex="-1">My Stats</button>
+            <button class="tab" id="tab-contact" type="button" role="tab" aria-selected="false" aria-controls="panel-contact" tabindex="-1">More Details</button>
+        </div>
+
+        <section class="panel" id="panel-register" role="tabpanel" aria-labelledby="tab-register">
+            <h2>ജപയജ്ഞത്തിൽ രജിസ്റ്റർ ചെയ്യുക</h2>
+            <p class="panel-copy">ദൈനംദിന അനുഷ്ഠാനത്തിൽ പങ്കെടുക്കാൻ രജിസ്റ്റർ ചെയ്യുക.</p>
+            <a class="action-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfYY3Bk5MUa0qdVtESkToaimTSfJ5qihVky0floj4zcoctdIA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Open Registration Form ↗</a>
         </section>
 
-        <section class="details-card">
-            <div class="toolbar">
-                <h2 class="section-title">Important Dates</h2>
-            </div>
+        <section class="panel" id="panel-submit" role="tabpanel" aria-labelledby="tab-submit" hidden>
+            <h2>ജപസംഖ്യ സമർപ്പിക്കുക</h2>
+            <p class="panel-copy">നിങ്ങളുടെ ജപത്തിന്റെ എണ്ണം സമർപ്പിക്കാൻ ഫോം തുറക്കുക.</p>
+            <a class="action-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeRgGfkWG2eNlc6cGO2xu7ysh_8dMLtjiFNoWAcjsb8qIxktw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Open Submit Count Form ↗</a>
+        </section>
 
-            <div class="date-card-grid">
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">◈</div>
-						<div class="date-value">മഹാനവമി</div>
-					</div>
-					<div class="date-label">20 Oct 2026 (ചൊവ്വ)</div>
-					<div class="date-description">ശ്രീ സരസ്വതി പൂജ, ശമീപൂജ</div>
-				</article>
+        <section class="panel" id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
+            <h2>Check Total Count</h2>
+            <p class="panel-copy">Enter your registered phone number to see your total submitted Sankya.</p>
+            <form id="search-form">
+                <fieldset class="option-select">
+                    <legend>Select japam</legend>
+                    <label class="option-choice selected">
+                        <input type="radio" name="japamType" value="gayathri" checked>
+                        <span>ഗായത്രി ജപം (Gayathri Manthra Japam)</span>
+                    </label>
+                    <label class="option-choice">
+                        <input type="radio" name="japamType" value="ashtakshara">
+                        <span>അഷ്ടാക്ഷര ജപം (Ashtakashara Japam)</span>
+                    </label>
+                </fieldset>
+                <div class="search-row">
+                    <div class="phone-field">
+                        <label for="phone">Phone Number</label>
+                        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 9876543210">
+                    </div>
+                    <button class="action" type="submit">Check Total</button>
+                    <button class="action secondary" id="clear-search" type="button">Clear</button>
+                </div>
+            </form>
 
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">☼</div>
-						<div class="date-value">വിജയദശമി</div>
-					</div>
-					<div class="date-label">21 Oct 2026 (ബുധൻ)</div>
-					<div class="date-description">കാർത്തിക വൃത തുളസി പൂജാരംഭം</div>
-				</article>
+            <section class="results" aria-label="Japam progress" aria-live="polite">
+                <p id="status" role="status" aria-live="polite">Enter your registered phone number to check your total.</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
+                        </thead>
+                        <tbody id="response-rows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
 
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">✦</div>
-						<div class="date-value">ദീപാവലി</div>
-					</div>
-					<div class="date-label">8 Nov 2026 (ഞായർ)</div>
-					<div class="date-description">വെളുപ്പിന് അഭ്യംഗസ്നാനം</div>
-				</article>
-			</div>
-			<div style="height:26px;"></div>
-			
-			<div class="date-card-grid">
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">◈</div>
-						<div class="date-value">ഉത്ഥാന ദ്വാദശി</div>
-					</div>
-					<div class="date-label">22 Nov 2026 (ഞായർ)</div>
-					<div class="date-description">ക്ഷീരാബ്ധി പൂജ (തുളസി പൂജ)</div>
-				</article>
-
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">☼</div>
-						<div class="date-value">വൈകുണ്ഠ ചതുര്‍ദശി</div>
-					</div>
-					<div class="date-label">23 Nov 2026 (തിങ്കള്‍)</div>
-					<div class="date-description">വനഭോജനം</div>
-				</article>
-
-				<article class="date-card">
-					<div class="date-card-heading">
-						<div class="date-icon">✦</div>
-						<div class="date-value">കാര്‍ത്തിക പൗര്‍ണമി</div>
-					</div>
-					<div class="date-label">24 Sep 2026 (ചൊവ്വ)</div>
-					<div class="date-description">ദീപദാനം, സത്യനാരായണ പൂജ</div>
-				</article>
-			</div>
-
-            <div style="height:26px;"></div>
-
+        <section class="panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
+            <h2>Contact</h2>
+			<p class="panel-copy">ഗ്രാമദേവനായ നാരായണ ദേവരുടെ 500-ാം  പൗർണ്ണമി സത്യനാരായണ പൂജ ദിനത്തിൽ (26/09/2026)
+                സമാരംഭം കുറിച്ച്  സത്യനാരായണ പൂജ തുടങ്ങി 41 വർഷം തികയുന്ന വൈശാഖ പൗർണ്ണമിക്ക് (06/05/2027) പരിസമാപ്തി കുറിക്കുന്നു.</p>
+            <p class="panel-copy">For assistance, contact one of the organizers.</p>
             <div class="contact-grid">
                 <article class="contact-card">
-                    <div class="contact-icon">☎</div>
+                    <div class="contact-icon" aria-hidden="true">☎</div>
                     <div>
                         <div class="contact-label">Sreekath G Bhat (Melshanthi)</div>
-                        <div class="contact-value">
-                            <a href="tel:+919037090910">+91 90370 90910</a>
-                        </div>
+                        <div class="contact-value"><a href="tel:+919037090910">+91 90370 90910</a></div>
                     </div>
                 </article>
-
                 <article class="contact-card">
-                    <div class="contact-icon">☎</div>
+                    <div class="contact-icon" aria-hidden="true">☎</div>
                     <div>
                         <div class="contact-label">Rohith Raj Pai</div>
-                        <div class="contact-value">
-                            <a href="tel:+918111812762">+91 81118 12762</a>
-                        </div>
+                        <div class="contact-value"><a href="tel:+918111812762">+91 81118 12762</a></div>
                     </div>
                 </article>
-
                 <article class="contact-card">
-                    <div class="contact-icon">☎</div>
+                    <div class="contact-icon" aria-hidden="true">☎</div>
                     <div>
                         <div class="contact-label">Ganesh Pai</div>
-                        <div class="contact-value">
-                            <a href="tel:+919846127997">+91 98461 27997</a>
-                        </div>
+                        <div class="contact-value"><a href="tel:+919846127997">+91 98461 27997</a></div>
                     </div>
                 </article>
             </div>
-
-            <div style="height:26px;"></div>
-
-            
         </section>
 
-        <footer class="footer">
-            ॐ नमो नारायणाय
-        </footer>
+        
+
+        <section class="important-dates" aria-labelledby="important-dates-title">
+            <h2 id="important-dates-title">Important Dates</h2>
+            <div class="date-grid">
+                <article class="date-card">
+                    <h3 class="date-name">മഹാനവമി</h3>
+                    <p class="date-label">20 Oct 2026 (ചൊവ്വ)</p>
+                    <p class="date-description">ശ്രീ സരസ്വതി പൂജ, ശമീപൂജ</p>
+                </article>
+                <article class="date-card">
+                    <h3 class="date-name">വിജയദശമി</h3>
+                    <p class="date-label">21 Oct 2026 (ബുധൻ)</p>
+                    <p class="date-description">കാർത്തിക വൃത തുളസി പൂജാരംഭം</p>
+                </article>
+                <article class="date-card">
+                    <h3 class="date-name">ദീപാവലി</h3>
+                    <p class="date-label">8 Nov 2026 (ഞായർ)</p>
+                    <p class="date-description">വെളുപ്പിന് അഭ്യംഗസ്നാനം</p>
+                </article>
+                <article class="date-card">
+                    <h3 class="date-name">ഉത്ഥാന ദ്വാദശി</h3>
+                    <p class="date-label">22 Nov 2026 (ഞായർ)</p>
+                    <p class="date-description">ക്ഷീരാബ്ധി പൂജ (തുളസി പൂജ)</p>
+                </article>
+                <article class="date-card">
+                    <h3 class="date-name">വൈകുണ്ഠ ചതുര്‍ദശി</h3>
+                    <p class="date-label">23 Nov 2026 (തിങ്കള്‍)</p>
+                    <p class="date-description">വനഭോജനം</p>
+                </article>
+                <article class="date-card">
+                    <h3 class="date-name">കാര്‍ത്തിക പൗര്‍ണമി</h3>
+                    <p class="date-label">24 Sep 2026 (ചൊവ്വ)</p>
+                    <p class="date-description">ദീപദാനം, സത്യനാരായണ പൂജ</p>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer">ॐ नमो नारायणाय</footer>
     </main>
 
     <script>
-    const REGISTRATION_API_URL =
-        "https://script.google.com/macros/s/AKfycbx4tdKW86L0raWPsjEI__fbLqsMFVQOEHfbyEsKcVfSNM4G0GfS_gCFqs9VlXqqy0tQVg/exec";
+        const REGISTRATION_API_URL = "https://script.google.com/macros/s/AKfycbx4tdKW86L0raWPsjEI__fbLqsMFVQOEHfbyEsKcVfSNM4G0GfS_gCFqs9VlXqqy0tQVg/exec";
+        const COUNT_API_URL = "https://script.google.com/macros/s/AKfycbwVH4bXQSfb6CQe26G-GlBeEN6gzzi5MiRe6xMaMMnhsKULcqhIQ1frRd8WUl0DGYvp/exec";
 
-    const COUNT_API_URL =
-        "https://script.google.com/macros/s/AKfycbwVH4bXQSfb6CQe26G-GlBeEN6gzzi5MiRe6xMaMMnhsKULcqhIQ1frRd8WUl0DGYvp/exec";
+        const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+        const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
 
-    const registrationElements = {
-        E2: document.getElementById("totalreg1"),
-        E3: document.getElementById("totalreg2")
-    };
+        function activateTab(index, updateHash = true) {
+            tabs.forEach((tab, tabIndex) => {
+                const selected = tabIndex === index;
+                tab.setAttribute("aria-selected", String(selected));
+                tab.tabIndex = selected ? 0 : -1;
+                panels[tabIndex].hidden = !selected;
+            });
+            if (updateHash) {
+                history.replaceState(null, "", `#${tabs[index].id}`);
+            }
+        }
 
-    const countElements = {
-        D2: document.getElementById("totalcount1"),
-        D3: document.getElementById("totalcount2"),
-        G8: document.getElementById("pdays")
-    };
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", () => activateTab(index));
+            tab.addEventListener("keydown", (event) => {
+                let nextIndex = index;
+                if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+                else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+                else if (event.key === "Home") nextIndex = 0;
+                else if (event.key === "End") nextIndex = tabs.length - 1;
+                else return;
+                event.preventDefault();
+                activateTab(nextIndex);
+                tabs[nextIndex].focus();
+            });
+        });
 
-    function displayTodayDate() {
-        const today = new Date();
+        const requestedTab = tabs.findIndex((tab) => `#${tab.id}` === window.location.hash);
+        if (requestedTab >= 0) activateTab(requestedTab, false);
 
-        const formattedDate = today.toLocaleDateString("en-GB", {
+        async function loadTotals(apiUrl, targetIds, label) {
+            try {
+                const response = await fetch(apiUrl, { cache: "no-store" });
+                if (!response.ok) throw new Error(`${label} request failed (${response.status}).`);
+                const data = await response.json();
+                if (!data.success) throw new Error(data.message || `Unable to load ${label} totals.`);
+                targetIds.forEach(([key, id]) => {
+                    const value = data.values && data.values[key];
+                    document.getElementById(id).textContent =
+                        value == null || value === "" ? "0" : String(value);
+                });
+            } catch (error) {
+                console.error(`${label} totals error:`, error);
+                targetIds.forEach(([, id]) => {
+                    document.getElementById(id).textContent = "—";
+                });
+            }
+        }
+
+        loadTotals(REGISTRATION_API_URL, [["E2", "totalreg1"], ["E3", "totalreg2"]], "Registration");
+        loadTotals(COUNT_API_URL, [["D2", "totalcount1"], ["D3", "totalcount2"], ["G8", "pdays"]], "Count");
+        document.getElementById("selectedDate").textContent = new Date().toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric"
         });
 
-        document.getElementById("selectedDate").textContent =
-            formattedDate;
-    }
+        const statusElement = document.getElementById("status");
+        const rowsElement = document.getElementById("response-rows");
+        const phoneInput = document.getElementById("phone");
+        let requestNumber = 0;
+        let selectedType = document.querySelector('input[name="japamType"]:checked').value;
 
-    function setLoading(elements) {
-        Object.values(elements).forEach((element) => {
-            if (element) {
-                element.textContent = "Loading...";
+        function renderResponses(result) {
+            rowsElement.replaceChildren();
+            if (!result || !result.success) {
+                statusElement.textContent = result && result.message
+                    ? result.message
+                    : "Could not load responses.";
+                return;
             }
-        });
-    }
-
-    function setError(elements) {
-        Object.values(elements).forEach((element) => {
-            if (element) {
-                element.textContent = "—";
-            }
-        });
-    }
-
-    function displayValues(elements, values) {
-        Object.entries(elements).forEach(([cellAddress, element]) => {
-            if (!element) {
+            if (!Array.isArray(result.data) || result.data.length === 0) {
+                statusElement.textContent = "No submissions found for this phone number.";
                 return;
             }
 
-            const value = values[cellAddress];
-
-            element.textContent =
-                value === "" ||
-                value === null ||
-                typeof value === "undefined"
-                    ? "0"
-                    : value;
-        });
-    }
-
-    async function loadSheetValues(apiUrl, elements, label) {
-        setLoading(elements);
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: "GET",
-                cache: "no-store"
+            result.data.forEach((item) => {
+                const row = document.createElement("tr");
+                [item.phone, item.name, item.count].forEach((value) => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value == null ? "" : String(value);
+                    row.appendChild(cell);
+                });
+                rowsElement.appendChild(row);
             });
-
-            const responseText = await response.text();
-
-            console.log(`${label} API response:`, responseText);
-
-            if (!response.ok) {
-                throw new Error(
-                    `${label} request failed with status ${response.status}`
-                );
-            }
-
-            const data = JSON.parse(responseText);
-
-            if (!data.success) {
-                throw new Error(
-                    data.message || `Unable to read ${label} values.`
-                );
-            }
-
-            displayValues(elements, data.values || {});
-
-        } catch (error) {
-            console.error(`${label} Google Sheet error:`, error);
-            setError(elements);
+            statusElement.textContent = `${result.data.length} matching response(s).`;
         }
-    }
 
-    displayTodayDate();
+        function loadResponses(phone) {
+            const currentRequest = ++requestNumber;
+            statusElement.textContent = "Loading responses...";
+            rowsElement.replaceChildren();
 
-    loadSheetValues(
-        REGISTRATION_API_URL,
-        registrationElements,
-        "Registration"
-    );
+            const callbackName = `handleResponses${currentRequest}`;
+            const params = new URLSearchParams({
+                action: "responses",
+                type: selectedType,
+                callback: callbackName
+            });
+            params.set("phone", phone);
 
-    loadSheetValues(
-        COUNT_API_URL,
-        countElements,
-        "Count"
-    );
+            const script = document.createElement("script");
+            let finished = false;
+            const timeout = window.setTimeout(() => {
+                if (finished) return;
+                finished = true;
+                if (currentRequest !== requestNumber) {
+                    cleanup();
+                    return;
+                }
+                statusElement.textContent =
+                    "The responses service did not return data. Check its deployment and response sheet settings.";
+                cleanup();
+            }, 15000);
 
-    
-</script>
+            function cleanup() {
+                window.clearTimeout(timeout);
+                script.remove();
+                delete window[callbackName];
+            }
+
+            window[callbackName] = (result) => {
+                if (finished) return;
+                finished = true;
+                if (currentRequest !== requestNumber) {
+                    cleanup();
+                    return;
+                }
+                renderResponses(result);
+                cleanup();
+            };
+
+            script.onerror = () => {
+                if (finished) return;
+                finished = true;
+                if (currentRequest !== requestNumber) {
+                    cleanup();
+                    return;
+                }
+                statusElement.textContent =
+                    "Could not connect to the responses service. Check the Apps Script deployment and access settings.";
+                cleanup();
+            };
+            script.src = `${COUNT_API_URL}?${params.toString()}`;
+            document.body.appendChild(script);
+        }
+
+        document.getElementById("search-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const phone = phoneInput.value.trim();
+            if (!phone) {
+                statusElement.textContent = "Enter a phone number to search.";
+                phoneInput.focus();
+                return;
+            }
+            loadResponses(phone);
+        });
+
+        document.getElementById("clear-search").addEventListener("click", () => {
+            requestNumber++;
+            phoneInput.value = "";
+            rowsElement.replaceChildren();
+            statusElement.textContent = "Enter your registered phone number to check your total.";
+            phoneInput.focus();
+        });
+
+        document.querySelectorAll('input[name="japamType"]').forEach((radio) => {
+            radio.addEventListener("change", () => {
+                requestNumber++;
+                selectedType = radio.value;
+                rowsElement.replaceChildren();
+                statusElement.textContent = "Enter your registered phone number to check your total.";
+                document.querySelectorAll(".option-choice").forEach((choice) => {
+                    choice.classList.toggle("selected", choice.querySelector("input").checked);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
