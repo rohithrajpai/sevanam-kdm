@@ -392,17 +392,80 @@
             margin-top: 24px;
         }
 
-        .table-wrap {
-            overflow-x: auto;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(0, 0, 0, .08);
+        .response-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: 14px;
         }
 
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255, 216, 136, .15); }
-        th { color: var(--gold-soft); background: rgba(0, 0, 0, .15); white-space: nowrap; }
-        tbody tr:last-child td { border-bottom: 0; }
+        .response-card {
+            min-width: 0;
+            padding: clamp(20px, 4vw, 38px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(255, 247, 230, .06), rgba(0, 0, 0, .14));
+        }
+
+        .response-date {
+            margin: 0;
+            padding: 18px 0;
+            border-top: 1px solid rgba(255, 216, 136, .18);
+            border-bottom: 1px solid rgba(255, 216, 136, .18);
+            color: var(--gold-soft);
+            font-size: clamp(15px, 2vw, 20px);
+            text-align: center;
+        }
+
+        .response-owner {
+            margin: 12px 0;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--gold-soft);
+            background: rgba(0, 0, 0, .12);
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .response-owner[hidden] { display: none; }
+
+        .response-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 8px;
+            margin: 0 0 16px;
+            color: var(--gold);
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(36px, 6vw, 50px);
+            font-weight: 700;
+            line-height: 1.1;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .response-count-label {
+            display: inline-block;
+            flex: 0 0 auto;
+            color: var(--ivory);
+            font-family: Inter, sans-serif;
+            font-size: clamp(15px, 2.5vw, 20px);
+            font-weight: 600;
+        }
+
+        .response-detail {
+            margin: 0;
+            padding: 20px 8px;
+            color: var(--ivory);
+            font-size: clamp(17px, 3vw, 25px);
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+            text-align: center;
+        }
+
+        .response-detail + .response-detail { border-top: 1px solid rgba(255, 216, 136, .18); }
+        .response-detail-label { color: var(--muted); }
 
         #status {
             min-height: 21px;
@@ -427,9 +490,7 @@
             .contact-grid { grid-template-columns: 1fr; }
             .search-row { align-items: stretch; flex-direction: column; }
             .search-row button { width: 100%; }
-            th, td { padding: 12px 10px; }
-            th { font-size: 12px; }
-            td { font-size: 14px; }
+            .response-card { padding: 16px; }
             .header-logos { max-width: 360px; gap: 12px; }
             .header-logo-side { width: 56px; height: 56px; }
             .header-logo-center { width: 72px; height: 72px; }
@@ -673,14 +734,8 @@
 
             <section class="results" aria-label="Japam progress" aria-live="polite">
                 <p id="status" role="status" aria-live="polite">Enter your registered phone number to check your total.</p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>Date of entry</th><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
-                        </thead>
-                        <tbody id="response-rows"></tbody>
-                    </table>
-                </div>
+                <p class="response-owner" id="response-owner" hidden></p>
+                <div class="response-cards" id="response-cards"></div>
             </section>
         </section>
 
@@ -820,13 +875,45 @@
         });
 
         const statusElement = document.getElementById("status");
-        const rowsElement = document.getElementById("response-rows");
+        const cardsElement = document.getElementById("response-cards");
+        const ownerElement = document.getElementById("response-owner");
         const phoneInput = document.getElementById("phone");
         let requestNumber = 0;
         let selectedType = document.querySelector('input[name="japamType"]:checked').value;
 
+        function formatResponseDate(value) {
+            const text = String(value).trim();
+            const match = text.match(/^(\d{1,4})[-/](\d{1,2})[-/](\d{1,4})/);
+            if (!match) return text;
+
+            const first = Number(match[1]);
+            const second = Number(match[2]);
+            const third = Number(match[3]);
+            let year;
+            let month;
+            let day;
+
+            if (match[1].length === 4) {
+                year = first;
+                month = second;
+                day = third;
+            } else {
+                year = third;
+                month = first > 12 ? second : first;
+                day = first > 12 ? first : second;
+            }
+
+            const parsed = new Date(Date.UTC(year, month - 1, day));
+            if (parsed.getUTCFullYear() !== year ||
+                parsed.getUTCMonth() !== month - 1 ||
+                parsed.getUTCDate() !== day) return text;
+
+            return `${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${String(year).padStart(4, "0")}`;
+        }
+
         function renderResponses(result) {
-            rowsElement.replaceChildren();
+            cardsElement.replaceChildren();
+            ownerElement.hidden = true;
             if (!result || !result.success) {
                 statusElement.textContent = result && result.message
                     ? result.message
@@ -838,14 +925,41 @@
                 return;
             }
 
+            ownerElement.textContent = `Phone: ${phoneInput.value.trim()}`;
+            ownerElement.hidden = false;
+
             result.data.forEach((item) => {
-                const row = document.createElement("tr");
-                [item.date, item.phone, item.name, item.count].forEach((value) => {
-                    const cell = document.createElement("td");
-                    cell.textContent = value == null ? "" : String(value);
-                    row.appendChild(cell);
-                });
-                rowsElement.appendChild(row);
+                const card = document.createElement("article");
+                card.className = "response-card";
+
+                const date = document.createElement("p");
+                date.className = "response-date";
+                const dateLabel = document.createElement("span");
+                dateLabel.textContent = "Updated: ";
+                const dateValue = document.createElement("strong");
+                dateValue.textContent = item.date == null || item.date === ""
+                    ? "Date not provided"
+                    : formatResponseDate(item.date);
+                date.append(dateLabel, dateValue);
+
+                const count = document.createElement("strong");
+                count.className = "response-count";
+                count.textContent = item.count == null || item.count === "" ? "—" : String(item.count);
+
+                const countLabel = document.createElement("span");
+                countLabel.className = "response-count-label";
+                countLabel.textContent = "";
+                count.appendChild(countLabel);
+
+                const name = document.createElement("p");
+                name.className = "response-detail";
+                const nameLabel = document.createElement("span");
+                nameLabel.className = "response-detail-label";
+                nameLabel.textContent = "";
+                name.append(nameLabel, document.createTextNode(item.name == null || item.name === "" ? "—" : String(item.name)));
+
+                card.append(count, date, name);
+                cardsElement.appendChild(card);
             });
             statusElement.textContent = `${result.data.length} matching response(s).`;
         }
@@ -853,7 +967,8 @@
         function loadResponses(phone) {
             const currentRequest = ++requestNumber;
             statusElement.textContent = "Loading responses...";
-            rowsElement.replaceChildren();
+            cardsElement.replaceChildren();
+            ownerElement.hidden = true;
 
             const callbackName = `handleResponses${currentRequest}`;
             const params = new URLSearchParams({
@@ -923,7 +1038,8 @@
         document.getElementById("clear-search").addEventListener("click", () => {
             requestNumber++;
             phoneInput.value = "";
-            rowsElement.replaceChildren();
+            cardsElement.replaceChildren();
+            ownerElement.hidden = true;
             statusElement.textContent = "Enter your registered phone number to check your total.";
             phoneInput.focus();
         });
@@ -932,7 +1048,8 @@
             radio.addEventListener("change", () => {
                 requestNumber++;
                 selectedType = radio.value;
-                rowsElement.replaceChildren();
+                cardsElement.replaceChildren();
+                ownerElement.hidden = true;
                 statusElement.textContent = "Enter your registered phone number to check your total.";
                 document.querySelectorAll(".option-choice").forEach((choice) => {
                     choice.classList.toggle("selected", choice.querySelector("input").checked);
