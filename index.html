@@ -434,6 +434,44 @@
             .header-logo-side { width: 56px; height: 56px; }
             .header-logo-center { width: 72px; height: 72px; }
         }
+		
+		.submit-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 14px;
+			margin-bottom: 18px;
+		}
+
+		.submit-field label {
+			display: block;
+			margin-bottom: 8px;
+			color: var(--gold-soft);
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.submit-field input,
+		.submit-field select {
+			display: block;
+			width: 100%;
+			min-height: 48px;
+			padding: 12px 14px;
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			color: var(--ivory);
+			background: rgba(0, 0, 0, .22);
+			font: inherit;
+		}
+
+		#submit-status {
+			min-height: 21px;
+			color: var(--muted);
+			font-size: 13px;
+		}
+
+		@media (max-width: 640px) {
+			.submit-grid { grid-template-columns: 1fr; }
+		}
     </style>
 </head>
 <body>
@@ -482,10 +520,67 @@
         </section>
 
         <section class="panel" id="panel-submit" role="tabpanel" aria-labelledby="tab-submit" hidden>
-            <h2>ജപസംഖ്യ സമർപ്പിക്കുക</h2>
-            <p class="panel-copy">നിങ്ങളുടെ ജപത്തിന്റെ എണ്ണം സമർപ്പിക്കാൻ ഫോം തുറക്കുക.</p>
-            <a class="action-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeRgGfkWG2eNlc6cGO2xu7ysh_8dMLtjiFNoWAcjsb8qIxktw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Open Submit Count Form ↗</a>
-        </section>
+			<h2>ജപസംഖ്യ സമർപ്പിക്കുക</h2>
+			<p class="panel-copy">നിങ്ങളുടെ ജപത്തിന്റെ എണ്ണം ഇവിടെ സമർപ്പിക്കുക.</p>
+
+			<form id="submit-count-form" method="post" target="submit-result-frame">
+				<input type="hidden" name="action" value="submitJapam">
+				<input type="hidden" id="client-token" name="clientToken">
+
+				<div class="submit-grid">
+					<div class="submit-field">
+						<label for="entry-date">Date of entry</label>
+						<input id="entry-date" name="date" type="date" required>
+					</div>
+
+					<div class="submit-field">
+						<label for="submit-phone">Phone Number</label>
+						<input id="submit-phone" name="phone" type="tel"
+							   inputmode="tel" autocomplete="tel"
+							   placeholder="e.g. 9876543210" required>
+					</div>
+
+					<div class="submit-field">
+						<label for="submit-relationship">ആരാണ് ചൊല്ലുന്നത് ?</label>
+						<select id="submit-relationship" name="name" required>
+							<option value="">Select Who</option>	
+							<option value="Self">Self</option>
+							<option value="Father">Father</option>
+							<option value="Mother">Mother</option>
+							<option value="Son">Son</option>
+							<option value="Daughter">Daughter</option>
+							<option value="Brother">Brother</option>
+							<option value="Sister">Sister</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+
+					<div class="submit-field">
+						<label for="japam-count">ജപ സംഖ്യാ</label>
+						<input id="japam-count" name="count" type="number"
+							   min="1" step="1" required>
+					</div>
+				</div>
+
+				<fieldset class="submit-options">
+					<legend>Gayathri / Ashthakshara Japam</legend>
+					<label class="submit-option">
+						<input type="radio" name="japamType" value="ഗായത്രി ജപം (Gayathri Manthra Japam)" required>
+						<span>ഗായത്രി ജപം (Gayathri Manthra Japam)</span>
+					</label>
+					<label class="submit-option">
+						<input type="radio" name="japamType" value="അഷ്ടാക്ഷര ജപം (Ashtakashara Japam)" required>
+						<span>അഷ്ടാക്ഷര ജപം (Ashtakashara Japam)</span>
+					</label>
+				</fieldset> <br><br>
+
+				<button class="action" id="submit-count-button" type="submit">Submit Count</button>
+				<p id="submit-status" role="status" aria-live="polite"></p>
+			</form>
+
+			<iframe name="submit-result-frame" id="submit-result-frame"
+					title="Submission result" hidden></iframe>
+		</section>
 
         <section class="panel" id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
             <h2>Check Total Count</h2>
@@ -517,7 +612,7 @@
                 <div class="table-wrap">
                     <table>
                         <thead>
-                            <tr><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
+                            <tr><th>Date of entry</th><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
                         </thead>
                         <tbody id="response-rows"></tbody>
                     </table>
@@ -681,7 +776,7 @@
 
             result.data.forEach((item) => {
                 const row = document.createElement("tr");
-                [item.phone, item.name, item.count].forEach((value) => {
+                [item.date, item.phone, item.name, item.count].forEach((value) => {
                     const cell = document.createElement("td");
                     cell.textContent = value == null ? "" : String(value);
                     row.appendChild(cell);
@@ -780,6 +875,80 @@
                 });
             });
         });
+		
+		const submitForm = document.getElementById("submit-count-form");
+		const submitStatus = document.getElementById("submit-status");
+		const submitButton = document.getElementById("submit-count-button");
+		let pendingSubmissionToken = "";
+		let submissionTimeout = 0;
+		
+		submitForm.action = COUNT_API_URL;
+
+		function createSubmissionToken() {
+			if (window.crypto && typeof window.crypto.randomUUID === "function") {
+				return window.crypto.randomUUID();
+			}
+			const randomValues = new Uint32Array(4);
+			window.crypto.getRandomValues(randomValues);
+			return Array.from(randomValues, (value) => value.toString(16)).join("-");
+		}
+
+
+		function localDateString() {
+			const now = new Date();
+			const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+			return local.toISOString().slice(0, 10);
+		}
+
+		document.getElementById("entry-date").value = localDateString();
+
+		submitForm.addEventListener("submit", () => {
+			pendingSubmissionToken = createSubmissionToken();
+			document.getElementById("client-token").value = pendingSubmissionToken;
+			submitButton.disabled = true;
+			submitStatus.textContent = "Submitting…";
+			window.clearTimeout(submissionTimeout);
+
+			submissionTimeout = window.setTimeout(() => {
+				if (submitButton.disabled) {
+					submitButton.disabled = false;
+					pendingSubmissionToken = "";
+					submitStatus.textContent =
+						"No confirmation received. Please check your connection and try again.";
+				}
+			}, 20000);
+		});
+
+		window.addEventListener("message", (event) => {
+			if (!event.data || event.data.source !== "japam-submit") return;
+			if (!pendingSubmissionToken ||
+				event.data.clientToken !== pendingSubmissionToken) return;
+
+			window.clearTimeout(submissionTimeout);
+			pendingSubmissionToken = "";
+			submitButton.disabled = false;
+
+			if (event.data.success) {
+				submitStatus.textContent = "Submission received. Thank you!";
+				submitForm.reset();
+				document.getElementById("entry-date").value = localDateString();
+			} else {
+				submitStatus.textContent = event.data.message || "Could not submit.";
+			}
+		});
+		
+		const dateInput = document.getElementById("entry-date");
+
+		  dateInput.addEventListener("change", function() {
+			const selectedDate = new Date(this.value);
+			const formattedDate = 
+			  (selectedDate.getMonth() + 1).toString().padStart(2, '0') + "/" +
+			  selectedDate.getDate().toString().padStart(2, '0') + "/" +
+			  selectedDate.getFullYear();
+			
+			console.log("Formatted Date:", formattedDate); 
+			// Example output: 10/19/2026
+		  });
     </script>
 </body>
 </html>
