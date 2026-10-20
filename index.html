@@ -463,6 +463,55 @@
 			font: inherit;
 		}
 
+		.submit-options {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+			min-width: 0;
+			margin: 0 0 20px;
+			padding: 12px;
+			border: 1px solid var(--border);
+			border-radius: 13px;
+		}
+
+		.submit-options legend {
+			max-width: 100%;
+			padding: 0 6px;
+			color: var(--gold-soft);
+			font-weight: 700;
+		}
+
+		.submit-option {
+			display: flex;
+			min-width: 0;
+			min-height: 58px;
+			align-items: center;
+			gap: 10px;
+			padding: 12px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: var(--panel-strong);
+			cursor: pointer;
+		}
+
+		.submit-option.selected {
+			border-color: var(--gold-soft);
+			color: #24100f;
+			background: var(--gold-soft);
+		}
+
+		.submit-option input {
+			flex: 0 0 auto;
+			margin: 0;
+			accent-color: #7a1e2d;
+		}
+
+		.submit-option span {
+			min-width: 0;
+			line-height: 1.5;
+			overflow-wrap: anywhere;
+		}
+
 		#submit-status {
 			min-height: 21px;
 			color: var(--muted);
@@ -470,7 +519,22 @@
 		}
 
 		@media (max-width: 640px) {
-			.submit-grid { grid-template-columns: 1fr; }
+			body { padding: 12px 8px 24px; }
+			main { width: 100%; }
+			.panel { padding: 18px 14px; border-radius: 18px; }
+			h1 { font-size: clamp(32px, 9vw, 46px); }
+			.panel h2 { font-size: clamp(28px, 8vw, 36px); }
+			.submit-grid, .submit-options { grid-template-columns: 1fr; }
+			.submit-options { gap: 8px; padding: 10px; }
+			.submit-option { align-items: flex-start; }
+			.submit-option input { margin-top: 4px; }
+			#submit-count-button { width: 100%; }
+		}
+
+		@media (max-width: 380px) {
+			.panel { padding: 16px 12px; }
+			.tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.tab { font-size: 12px; }
 		}
     </style>
 </head>
@@ -566,11 +630,11 @@
 					<legend>Gayathri / Ashthakshara Japam</legend>
 					<label class="submit-option">
 						<input type="radio" name="japamType" value="ഗായത്രി ജപം (Gayathri Manthra Japam)" required>
-						<span>ഗായത്രി ജപം</span>
+						<span>ഗായത്രി ജപം (Gayathri Manthra Japam)</span>
 					</label>
 					<label class="submit-option">
 						<input type="radio" name="japamType" value="അഷ്ടാക്ഷര ജപം (Ashtakashara Japam)" required>
-						<span>അഷ്ടാക്ഷര ജപം</span>
+						<span>അഷ്ടാക്ഷര ജപം (Ashtakashara Japam)</span>
 					</label>
 				</fieldset> <br><br>
 
@@ -612,7 +676,7 @@
                 <div class="table-wrap">
                     <table>
                         <thead>
-                            <tr><th>Last Updation Date </th><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
+                            <tr><th>Date of entry</th><th>Phone Number</th><th>ആരാണ് ചൊല്ലുന്നത്?</th><th>സംഖ്യ</th></tr>
                         </thead>
                         <tbody id="response-rows"></tbody>
                     </table>
@@ -883,6 +947,17 @@
 		let submissionTimeout = 0;
 		
 		submitForm.action = COUNT_API_URL;
+
+		submitForm.querySelectorAll('input[name="japamType"]').forEach((radio) => {
+			radio.addEventListener("change", () => {
+				submitForm.querySelectorAll(".submit-option").forEach((option) => {
+					option.classList.toggle(
+						"selected",
+						option.querySelector("input").checked
+					);
+				});
+			});
+		});
 
 		function createSubmissionToken() {
 			if (window.crypto && typeof window.crypto.randomUUID === "function") {
